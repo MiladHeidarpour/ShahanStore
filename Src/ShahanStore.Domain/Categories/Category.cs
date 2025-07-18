@@ -12,6 +12,7 @@ public class Category : AggregateRoot
     public Guid? ParentId { get; private set; }
     public string? BannerImg { get; private set; }
     public string? Icon { get; private set; }
+    public bool IsDeleted { get; protected set; }
     public SeoData SeoData { get; private set; }
 
     private readonly List<CategoryAttribute> _categoryAttributes = new();
@@ -22,7 +23,6 @@ public class Category : AggregateRoot
     private Category() { }
     public Category(string title, string slug, Guid? parentId, string? bannerImg, string? icon, SeoData seoData)
     {
-        slug = slug.ToSlug();
         Guard(title, slug);
         Title = title;
         Slug = slug;
@@ -30,18 +30,20 @@ public class Category : AggregateRoot
         BannerImg = bannerImg;
         Icon = icon;
         SeoData = seoData;
+        IsDeleted= false;
     }
-   
-    public void Edit(string title, string slug, Guid? parentId, SeoData seoData)
+
+    public void Edit(string title, string slug, SeoData seoData)
     {
-        slug = slug.ToSlug();
         Guard(title, slug);
         Title = title;
         Slug = slug;
-        ParentId = parentId;
         SeoData = seoData;
     }
-
+    public void Delete()
+    {
+        IsDeleted = true;
+    }
     public void ChangeBanner(string newBanner)
     {
         BannerImg = newBanner;
@@ -59,7 +61,7 @@ public class Category : AggregateRoot
     {
         if (_categoryAttributes.Any(a => a.Name == attributeName))
         {
-            throw new InvalidDomainDataException($"Attribute '{attributeName}' already exists in this category.",nameof(CategoryAttributes));
+            throw new InvalidDomainDataException($"Attribute '{attributeName}' already exists in this category.", nameof(CategoryAttributes));
         }
 
         var newAttribute = new CategoryAttribute(attributeName, possibleValues, Id);

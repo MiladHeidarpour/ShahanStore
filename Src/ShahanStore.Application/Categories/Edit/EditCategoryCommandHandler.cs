@@ -1,0 +1,33 @@
+﻿using Common.Application.Abstractions.Messaging.Commands;
+using Common.Application.Models.Results;
+using Common.Domain.Repositories;
+using Common.Domain.Utilities;
+using ShahanStore.Domain.Categories;
+
+namespace ShahanStore.Application.Categories.Edit;
+
+internal class EditCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork) : ICommandHandler<EditCategoryCommand>
+{
+    public async Task<OperationResult> Handle(EditCategoryCommand request, CancellationToken cancellationToken)
+    {
+        var category = await categoryRepository.GetByIdAsync(request.Id);
+        if (category is null)
+        {
+            return OperationResult.NotFound();
+        }
+
+        string newSlug = request.Slug.ToSlug();
+        if (category.Slug != newSlug)
+        {
+            if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug()))
+            {
+                return OperationResult.Error("اسلاگ وارد شده تکراری است.");
+            }
+        }
+
+        category.Edit(request.Title, newSlug, request.SeoData);
+
+        await unitOfWork.SaveChangesAsync(cancellationToken);
+        return OperationResult.Success();
+    }
+}
