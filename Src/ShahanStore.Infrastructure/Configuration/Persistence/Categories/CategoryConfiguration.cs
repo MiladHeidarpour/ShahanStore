@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ShahanStore.Domain.Categories;
 
-namespace ShahanStore.Infrastructure.Configuration.Persistence;
+namespace ShahanStore.Infrastructure.Configuration.Persistence.Categories;
 
 public class CategoryConfiguration:IEntityTypeConfiguration<Category>
 {
