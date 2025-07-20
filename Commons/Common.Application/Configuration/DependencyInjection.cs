@@ -8,9 +8,12 @@ namespace Common.Application.Configuration;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddCommonApplication(this IServiceCollection services)
+    public static IServiceCollection AddCommonApplication(this IServiceCollection services, Assembly applicationAssembly)
     {
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+        services.AddValidatorsFromAssembly(applicationAssembly);
+        services.AddMediatR(cfg => {
+            cfg.RegisterServicesFromAssembly(applicationAssembly);
+        });
         services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
         return services;
     }

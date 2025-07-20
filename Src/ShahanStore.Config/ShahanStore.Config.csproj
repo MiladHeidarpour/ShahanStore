@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Commons\Common.Infrastructure\Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\ShahanStore.Application\ShahanStore.Application.csproj" />
+    <ProjectReference Include="..\ShahanStore.Infrastructure\ShahanStore.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
