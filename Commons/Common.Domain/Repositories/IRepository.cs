@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace Common.Domain.Repositories;
 
-public interface IGenericRepository<TEntity> where TEntity : BaseEntity
+public interface IRepository<TEntity> where TEntity : BaseEntity
 {
     
 }

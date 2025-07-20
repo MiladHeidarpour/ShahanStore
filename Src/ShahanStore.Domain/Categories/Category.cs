@@ -13,7 +13,7 @@ public class Category : AggregateRoot
     public string? BannerImg { get; private set; }
     public string? Icon { get; private set; }
     public bool IsDeleted { get; protected set; }
-    public SeoData SeoData { get; private set; }
+    public SeoData SeoData { get; private set; } 
 
     private readonly List<CategoryAttribute> _categoryAttributes = new();
     public IReadOnlyCollection<CategoryAttribute> CategoryAttributes => _categoryAttributes.AsReadOnly();

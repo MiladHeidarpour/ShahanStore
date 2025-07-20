@@ -2,7 +2,7 @@
 
 namespace ShahanStore.Domain.Categories;
 
-public interface ICategoryRepository : IGenericRepository<Category>
+public interface ICategoryRepository : IRepository<Category>
 {
     Task<Category?> GetByIdAsync(Guid categoryId);
     Task<List<Category>> GetAllChildrenAsync(Guid parentId);

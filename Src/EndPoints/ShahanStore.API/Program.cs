@@ -1,3 +1,7 @@
+﻿using Common.Application.Configuration;
+using ShahanStore.Application.Categories.Create;
+using ShahanStore.Config;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -6,6 +10,12 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+
+#region DependencyInjection
+var applicationAssembly = typeof(CreateCategoryCommand).Assembly;
+builder.Services.AddStoreDependency(applicationAssembly, builder.Configuration);
+#endregion
 
 var app = builder.Build();
 
