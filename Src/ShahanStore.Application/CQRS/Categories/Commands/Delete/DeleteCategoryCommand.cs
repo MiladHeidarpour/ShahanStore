@@ -3,7 +3,7 @@ using Common.Application.Models.Results;
 using Common.Domain.Repositories;
 using ShahanStore.Domain.Categories;
 
-namespace ShahanStore.Application.Categories.Delete;
+namespace ShahanStore.Application.CQRS.Categories.Commands.Delete;
 
 public sealed record DeleteCategoryCommand(Guid CategoryId) : ICommand;
 

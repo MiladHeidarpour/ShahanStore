@@ -1,11 +1,11 @@
 ﻿using Common.Application.Validations;
 using FluentValidation;
 
-namespace ShahanStore.Application.Categories.Edit;
+namespace ShahanStore.Application.CQRS.Categories.Commands.Create;
 
-public class EditCategoryCommandValidator : AbstractValidator<EditCategoryCommand>
+public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
 {
-    public EditCategoryCommandValidator()
+    public CreateCategoryCommandValidator()
     {
         RuleFor(r => r.Title)
             .NotNull().NotEmpty().WithMessage(ValidationMessages.Required("عنوان"));

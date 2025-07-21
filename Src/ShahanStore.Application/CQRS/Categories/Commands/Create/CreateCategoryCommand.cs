@@ -2,7 +2,7 @@
 using Common.Application.Abstractions.Messaging.Commands;
 using Common.Domain.ValueObjects;
 
-namespace ShahanStore.Application.Categories.Create;
+namespace ShahanStore.Application.CQRS.Categories.Commands.Create;
 
 public sealed record CreateCategoryCommand(
     string Title,

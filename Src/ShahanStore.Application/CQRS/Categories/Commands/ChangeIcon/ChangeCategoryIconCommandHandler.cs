@@ -3,12 +3,11 @@ using Common.Application.Models.Results;
 using Common.Domain.Repositories;
 using ShahanStore.Domain.Categories;
 
-namespace ShahanStore.Application.Categories.ChangeBanner;
+namespace ShahanStore.Application.CQRS.Categories.Commands.ChangeIcon;
 
-internal class ChangeCategoryBannerCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
-    : ICommandHandler<ChangeCategoryBannerCommand>
+internal class ChangeCategoryIconCommandHandler(ICategoryRepository categoryRepository,IUnitOfWork unitOfWork) : ICommandHandler<ChangeCategoryIconCommand>
 {
-    public async Task<OperationResult> Handle(ChangeCategoryBannerCommand request, CancellationToken cancellationToken)
+    public async Task<OperationResult> Handle(ChangeCategoryIconCommand request, CancellationToken cancellationToken)
     {
         var category = await categoryRepository.GetByIdAsync(request.CategoryId);
 
@@ -17,7 +16,7 @@ internal class ChangeCategoryBannerCommandHandler(ICategoryRepository categoryRe
             return OperationResult.NotFound();
         }
 
-        category.ChangeBanner(request.BannerImg);
+        category.ChangeIcon(request.Icon);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResult.Success();
     }

@@ -1,7 +1,7 @@
 ﻿using Common.Application.Validations;
 using FluentValidation;
 
-namespace ShahanStore.Application.Categories.AddChild;
+namespace ShahanStore.Application.CQRS.Categories.Commands.AddChild;
 
 public class AddChildCategoryCommandValidator : AbstractValidator<AddChildCategoryCommand>
 {
