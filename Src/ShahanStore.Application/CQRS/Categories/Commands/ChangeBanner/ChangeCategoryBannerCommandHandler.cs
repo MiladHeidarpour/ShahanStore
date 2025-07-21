@@ -5,12 +5,12 @@ using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.ChangeBanner;
 
-internal class ChangeCategoryBannerCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+internal sealed class ChangeCategoryBannerCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
     : ICommandHandler<ChangeCategoryBannerCommand>
 {
     public async Task<OperationResult> Handle(ChangeCategoryBannerCommand request, CancellationToken cancellationToken)
     {
-        var category = await categoryRepository.GetByIdAsync(request.CategoryId);
+        var category = await categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken);
 
         if (category is null)
         {

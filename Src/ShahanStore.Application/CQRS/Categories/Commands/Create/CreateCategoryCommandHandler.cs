@@ -6,17 +6,17 @@ using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.Create;
 
-internal class CreateCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
+internal sealed class CreateCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
     : ICommandHandler<CreateCategoryCommand>
 {
     public async Task<OperationResult> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
     {
-        if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug()))
+        if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug(), cancellationToken))
         {
             return OperationResult.Error("اسلاگ وارد شده تکراری است.");
         }
 
-        var category = new Category(request.Title, request.Slug, null, request.BannerImg, request.Icon,
+        Category category=Category.CreateNew(request.Title, request.Slug, null, request.BannerImg, request.Icon,
             request.SeoData);
 
         categoryRepository.Add(category);

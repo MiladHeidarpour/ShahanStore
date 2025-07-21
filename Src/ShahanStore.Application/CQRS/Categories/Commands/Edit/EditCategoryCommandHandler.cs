@@ -6,11 +6,11 @@ using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.Edit;
 
-internal class EditCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork) : ICommandHandler<EditCategoryCommand>
+internal sealed class EditCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork) : ICommandHandler<EditCategoryCommand>
 {
     public async Task<OperationResult> Handle(EditCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await categoryRepository.GetByIdAsync(request.Id);
+        var category = await categoryRepository.GetByIdAsync(request.Id, cancellationToken);
         if (category is null)
         {
             return OperationResult.NotFound();
@@ -19,7 +19,7 @@ internal class EditCategoryCommandHandler(ICategoryRepository categoryRepository
         string newSlug = request.Slug.ToSlug();
         if (category.Slug != newSlug)
         {
-            if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug()))
+            if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug(), cancellationToken))
             {
                 return OperationResult.Error("اسلاگ وارد شده تکراری است.");
             }

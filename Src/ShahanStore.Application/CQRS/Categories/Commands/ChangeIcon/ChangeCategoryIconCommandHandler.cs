@@ -5,11 +5,11 @@ using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.ChangeIcon;
 
-internal class ChangeCategoryIconCommandHandler(ICategoryRepository categoryRepository,IUnitOfWork unitOfWork) : ICommandHandler<ChangeCategoryIconCommand>
+internal sealed class ChangeCategoryIconCommandHandler(ICategoryRepository categoryRepository,IUnitOfWork unitOfWork) : ICommandHandler<ChangeCategoryIconCommand>
 {
     public async Task<OperationResult> Handle(ChangeCategoryIconCommand request, CancellationToken cancellationToken)
     {
-        var category = await categoryRepository.GetByIdAsync(request.CategoryId);
+        var category = await categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken);
 
         if (category is null)
         {

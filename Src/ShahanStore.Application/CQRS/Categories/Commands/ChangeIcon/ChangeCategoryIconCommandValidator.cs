@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.ChangeIcon;
 
-public class ChangeCategoryIconCommandValidator : AbstractValidator<ChangeCategoryIconCommand>
+public sealed class ChangeCategoryIconCommandValidator : AbstractValidator<ChangeCategoryIconCommand>
 {
     public ChangeCategoryIconCommandValidator()
     {

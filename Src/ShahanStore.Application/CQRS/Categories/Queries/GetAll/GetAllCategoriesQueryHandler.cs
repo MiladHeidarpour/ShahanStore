@@ -4,11 +4,12 @@ using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Application.CQRS.Categories.Queries.GetAll;
 
-internal class GetAllCategoriesQueryHandler(ICategoryRepository repository) : IQueryHandler<GetAllCategoriesQuery, List<CategoryDto>>
+internal sealed class GetAllCategoriesQueryHandler(ICategoryRepository categoryRepository) : IQueryHandler<GetAllCategoriesQuery, List<CategoryDto>>
 {
+    private readonly ICategoryRepository _categoryRepository = categoryRepository;
     public async Task<List<CategoryDto>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var categories = await repository.GetAllAsync();
+        var categories = await _categoryRepository.GetAllAsync(cancellationToken);
         return categories.Map();
     }
 }
