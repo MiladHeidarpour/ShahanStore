@@ -1,7 +1,7 @@
 ﻿using Common.Application.Validations;
 using FluentValidation;
 
-namespace ShahanStore.Application.Categories.ChangeBanner;
+namespace ShahanStore.Application.CQRS.Categories.Commands.ChangeBanner;
 
 public class ChangeCategoryBannerCommandValidator : AbstractValidator<ChangeCategoryBannerCommand>
 {

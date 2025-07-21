@@ -19,11 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\..\ShahanStore.Config\ShahanStore.Config.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\ShahanStore.Config\ShahanStore.Config.csproj" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
 
 </Project>

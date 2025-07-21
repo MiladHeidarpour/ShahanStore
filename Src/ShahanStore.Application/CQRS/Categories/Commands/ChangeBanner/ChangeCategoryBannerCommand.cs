@@ -1,7 +1,6 @@
 ﻿using Common.Application.Abstractions.Messaging.Commands;
-using ShahanStore.Application.Categories.AddChild;
 
-namespace ShahanStore.Application.Categories.ChangeBanner;
+namespace ShahanStore.Application.CQRS.Categories.Commands.ChangeBanner;
 
 public sealed record ChangeCategoryBannerCommand(
     Guid CategoryId,

@@ -1,5 +1,4 @@
-﻿using Common.Application.Configuration;
-using ShahanStore.Application.Categories.Create;
+﻿using ShahanStore.Application.CQRS.Categories.Commands.Create;
 using ShahanStore.Config;
 
 var builder = WebApplication.CreateBuilder(args);

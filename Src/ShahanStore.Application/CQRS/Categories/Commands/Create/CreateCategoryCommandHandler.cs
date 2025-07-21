@@ -4,7 +4,7 @@ using Common.Domain.Repositories;
 using Common.Domain.Utilities;
 using ShahanStore.Domain.Categories;
 
-namespace ShahanStore.Application.Categories.Create;
+namespace ShahanStore.Application.CQRS.Categories.Commands.Create;
 
 internal class CreateCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork)
     : ICommandHandler<CreateCategoryCommand>

@@ -4,7 +4,7 @@ using Common.Domain.Repositories;
 using Common.Domain.Utilities;
 using ShahanStore.Domain.Categories;
 
-namespace ShahanStore.Application.Categories.Edit;
+namespace ShahanStore.Application.CQRS.Categories.Commands.Edit;
 
 internal class EditCategoryCommandHandler(ICategoryRepository categoryRepository, IUnitOfWork unitOfWork) : ICommandHandler<EditCategoryCommand>
 {

@@ -12,7 +12,7 @@ public class Category : AggregateRoot
     public Guid? ParentId { get; private set; }
     public string? BannerImg { get; private set; }
     public string? Icon { get; private set; }
-    public bool IsDeleted { get; protected set; }
+    public bool IsDeleted { get; private set; }
     public SeoData SeoData { get; private set; } 
 
     private readonly List<CategoryAttribute> _categoryAttributes = new();
