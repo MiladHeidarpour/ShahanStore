@@ -13,15 +13,14 @@ public class Category : AggregateRoot
     public string? BannerImg { get; private set; }
     public string? Icon { get; private set; }
     public bool IsDeleted { get; private set; }
-    public SeoData SeoData { get; private set; } 
+    public SeoData SeoData { get; private set; }
 
     private readonly List<CategoryAttribute> _categoryAttributes = new();
     public IReadOnlyCollection<CategoryAttribute> CategoryAttributes => _categoryAttributes.AsReadOnly();
 
 
 
-    private Category() { }
-    public Category(string title, string slug, Guid? parentId, string? bannerImg, string? icon, SeoData seoData)
+    private Category(string title, string slug, Guid? parentId, string? bannerImg, string? icon, SeoData seoData)
     {
         Guard(title, slug);
         Title = title;
@@ -30,9 +29,18 @@ public class Category : AggregateRoot
         BannerImg = bannerImg;
         Icon = icon;
         SeoData = seoData;
-        IsDeleted= false;
+        IsDeleted = false;
+    }
+    public Category()
+    {
+        
     }
 
+
+    public static Category CreateNew(string title, string slug, Guid? parentId, string? bannerImg, string? icon, SeoData seoData)
+    {
+        return new Category(title, slug, parentId, bannerImg, icon, seoData);
+    }
     public void Edit(string title, string slug, SeoData seoData)
     {
         Guard(title, slug);

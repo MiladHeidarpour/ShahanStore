@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.Edit;
 
-public class EditCategoryCommandValidator : AbstractValidator<EditCategoryCommand>
+public sealed class EditCategoryCommandValidator : AbstractValidator<EditCategoryCommand>
 {
     public EditCategoryCommandValidator()
     {

@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.Create;
 
-public class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
+public sealed class CreateCategoryCommandValidator : AbstractValidator<CreateCategoryCommand>
 {
     public CreateCategoryCommandValidator()
     {

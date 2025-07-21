@@ -3,7 +3,8 @@ using Common.Domain.ValueObjects;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.AddChild;
 
-public sealed record AddChildCategoryCommand(string Title,
+public sealed record AddChildCategoryCommand(
+    string Title,
     string Slug,
     Guid ParentId,
     string? BannerImg,
