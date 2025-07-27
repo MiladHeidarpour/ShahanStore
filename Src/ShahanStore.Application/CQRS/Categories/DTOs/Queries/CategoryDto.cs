@@ -1,6 +1,6 @@
-﻿using Common.Application.Dtos;
+﻿using Common.Application.DTOs;
 
-namespace ShahanStore.Application.CQRS.Categories._Dtos.Queries;
+namespace ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 
 public sealed record CategoryDto(
     Guid Id,

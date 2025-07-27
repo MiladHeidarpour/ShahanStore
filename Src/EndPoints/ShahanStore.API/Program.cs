@@ -1,34 +1,55 @@
-﻿using ShahanStore.Application.CQRS.Categories.Commands.Create;
+﻿using Serilog;
+using ShahanStore.API.Common.FileUtil.Interfaces;
+using ShahanStore.API.Common.FileUtil.Services;
+using ShahanStore.API.Configuration;
+using ShahanStore.Application.CQRS.Categories.Commands.Create;
 using ShahanStore.Config;
-
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+using System.Reflection;
 
 
-#region DependencyInjection
-var applicationAssembly = typeof(CreateCategoryCommand).Assembly;
-builder.Services.AddStoreDependency(applicationAssembly, builder.Configuration);
-#endregion
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
+Log.Information("Starting up");
 
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var builder = WebApplication.CreateBuilder(args);
+
+    // Add services to the container.
+
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
+    #region DependencyInjection
+    
+    builder.Services.AddAPIDependency(builder.Configuration);
+
+    #endregion
+
+    var app = builder.Build();
+
+    // Configure the HTTP request pipeline.
+    if (app.Environment.IsDevelopment())
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
+
+    app.UseHttpsRedirection();
+    app.UseAuthorization();
+    app.MapControllers();
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "An unhandled exception occurred during bootstrapping");
+}
+finally
+{
+    // ۳. اطمینان از ثبت تمام لاگ‌ها قبل از بسته شدن برنامه
+    Log.CloseAndFlush();
 }
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
