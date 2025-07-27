@@ -1,5 +1,5 @@
 ﻿using Common.Application.Abstractions.Messaging.Queries;
-using ShahanStore.Application.CQRS.Categories._Dtos.Queries;
+using ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Application.CQRS.Categories.Queries.GetAll;

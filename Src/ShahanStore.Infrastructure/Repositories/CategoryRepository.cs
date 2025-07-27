@@ -6,6 +6,11 @@ namespace ShahanStore.Infrastructure.Repositories;
 
 public class CategoryRepository(AppDbContext context) : Repository<Category>(context), ICategoryRepository
 {
+    public async Task<Category?> FindByIdAsync(Guid categoryId, CancellationToken cancellationToken)
+    {
+        return await Context.Categories.FindAsync(categoryId,cancellationToken);
+    }
+
     public async Task<Category?> GetByIdAsync(Guid categoryId, CancellationToken cancellationToken)
     {
         return await Context.Categories

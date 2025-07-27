@@ -10,7 +10,7 @@ internal sealed class EditCategoryCommandHandler(ICategoryRepository categoryRep
 {
     public async Task<OperationResult> Handle(EditCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await categoryRepository.GetByIdAsync(request.Id, cancellationToken);
+        var category = await categoryRepository.FindByIdAsync(request.Id, cancellationToken);
         if (category is null)
         {
             return OperationResult.NotFound();
@@ -26,7 +26,6 @@ internal sealed class EditCategoryCommandHandler(ICategoryRepository categoryRep
         }
 
         category.Edit(request.Title, newSlug, request.SeoData);
-
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResult.Success();
     }

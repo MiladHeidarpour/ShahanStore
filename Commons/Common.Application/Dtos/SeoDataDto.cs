@@ -1,4 +1,4 @@
-﻿namespace Common.Application.Dtos;
+﻿namespace Common.Application.DTOs;
 
 public record SeoDataDto(
     // Meta Tags

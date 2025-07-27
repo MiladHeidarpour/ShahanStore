@@ -1,5 +1,5 @@
-﻿using Common.Application.Dtos;
-using ShahanStore.Application.CQRS.Categories._Dtos.Queries;
+﻿using Common.Application.DTOs;
+using ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Application.CQRS.Categories;
@@ -24,7 +24,7 @@ internal static class CategoryMapper
             category.SeoData.Schema);
 
         var attributeDtos = category.CategoryAttributes
-            .Select(attr => new CategoryAttributeDto(attr.Id, attr.Name, attr.PossibleValues))
+            .Select(attr => new CategoryAttributeDto(attr.Id,attr.CreationDate ,attr.Name, attr.PossibleValues))
             .ToList();
 
         return new CategoryDto(
