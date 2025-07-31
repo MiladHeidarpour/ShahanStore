@@ -54,11 +54,13 @@ public class Category : AggregateRoot
     }
     public void ChangeBanner(string newBanner)
     {
+        DomainGuard.AgainstNullOrEmpty(newBanner, nameof(BannerImg));
         BannerImg = newBanner;
     }
 
     public void ChangeIcon(string newIcon)
     {
+        DomainGuard.AgainstNullOrEmpty(newIcon, nameof(Icon));
         Icon = newIcon;
     }
 
