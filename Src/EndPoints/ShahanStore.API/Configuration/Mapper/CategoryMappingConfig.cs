@@ -28,14 +28,14 @@ public class CategoryMappingConfig : IRegister
 
         //config.NewConfig<CreateCategoryDto, CreateCategoryCommand>();
         config.NewConfig<CreateCategoryDto, CreateCategoryCommand>()
-            .Map(dest => dest.BannerImg, src => src.BannerImg.FileName)
-            .Map(dest => dest.Icon, src => src.Icon.FileName);
+            .Map(dest => dest.BannerImg, src => src.BannerImg != null ? src.BannerImg.FileName : null)
+            .Map(dest => dest.Icon, src => src.Icon != null ? src.Icon.FileName : null);
 
 
         //config.NewConfig<AddChildCategoryDto, AddChildCategoryCommand>();
         config.NewConfig<AddChildCategoryDto, AddChildCategoryCommand>()
-            .Map(dest => dest.BannerImg, src => src.BannerImg.FileName)
-            .Map(dest => dest.Icon, src => src.Icon.FileName);
+            .Map(dest => dest.BannerImg, src => src.BannerImg != null ? src.BannerImg.FileName : null)
+            .Map(dest => dest.Icon, src => src.Icon != null ? src.Icon.FileName : null);
 
         config.NewConfig<EditCategoryDto, EditCategoryCommand>();
         config.NewConfig<DeleteCategoryDto, DeleteCategoryCommand>();
