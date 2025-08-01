@@ -12,4 +12,4 @@ public sealed record CategoryDto(
     string? Icon,
     bool IsDeleted,
     SeoDataDto SeoData,
-    List<CategoryAttributeDto> Attributes) :BaseDto(Id, CreationDate);
+    List<CategoryAttributeDto> Attributes) : BaseDto(Id, CreationDate);

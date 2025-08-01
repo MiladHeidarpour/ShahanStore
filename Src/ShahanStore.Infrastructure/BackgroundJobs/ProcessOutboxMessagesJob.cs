@@ -10,8 +10,8 @@ namespace ShahanStore.Infrastructure.BackgroundJobs;
 
 public class ProcessOutboxMessagesJob : BackgroundService
 {
-    private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<ProcessOutboxMessagesJob> _logger;
+    private readonly IServiceProvider _serviceProvider;
 
     public ProcessOutboxMessagesJob(IServiceProvider serviceProvider, ILogger<ProcessOutboxMessagesJob> logger)
     {
@@ -40,7 +40,6 @@ public class ProcessOutboxMessagesJob : BackgroundService
             .ToListAsync(stoppingToken);
 
         foreach (var message in messages)
-        {
             try
             {
                 var domainEvent = JsonConvert.DeserializeObject(message.Content, new JsonSerializerSettings
@@ -59,7 +58,6 @@ public class ProcessOutboxMessagesJob : BackgroundService
                 _logger.LogError(ex, "Failed to process Outbox message {MessageId}", message.Id);
                 message.MarkAsFailed(ex.ToString());
             }
-        }
 
         await dbContext.SaveChangesAsync(stoppingToken);
     }

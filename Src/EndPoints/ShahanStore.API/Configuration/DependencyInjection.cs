@@ -9,7 +9,7 @@ namespace ShahanStore.API.Configuration;
 
 public static class DependencyInjection
 {
-    public static IServiceCollection AddAPIDependency(this IServiceCollection services,IConfiguration configuration)
+    public static IServiceCollection AddAPIDependency(this IServiceCollection services, IConfiguration configuration)
     {
         var apiAssembly = typeof(Program).Assembly;
         var applicationAssembly = typeof(CreateCategoryCommand).Assembly;

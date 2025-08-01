@@ -1,21 +1,22 @@
-﻿using System.Reflection;
-
-namespace Common.Domain.Bases;
+﻿namespace Common.Domain.Bases;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field)]
 public class IgnoreMemberAttribute : Attribute
 {
 }
+
 public abstract class ValueObject : IEquatable<ValueObject>
 {
+    public bool Equals(ValueObject? other)
+    {
+        return other is not null && Equals((object)other);
+    }
+
     public abstract IEnumerable<object> GetEqualityComponents();
 
     public override bool Equals(object? obj)
     {
-        if (obj is null || obj.GetType() != GetType())
-        {
-            return false;
-        }
+        if (obj is null || obj.GetType() != GetType()) return false;
 
         var valueObject = (ValueObject)obj;
         return GetEqualityComponents().SequenceEqual(valueObject.GetEqualityComponents());
@@ -24,15 +25,7 @@ public abstract class ValueObject : IEquatable<ValueObject>
     public override int GetHashCode()
     {
         return GetEqualityComponents()
-            .Aggregate(1, (current, obj) =>
-            {
-                return HashCode.Combine(current, obj);
-            });
-    }
-
-    public bool Equals(ValueObject? other)
-    {
-        return other is not null && Equals((object)other);
+            .Aggregate(1, (current, obj) => { return HashCode.Combine(current, obj); });
     }
 
     public static bool operator ==(ValueObject? a, ValueObject? b)

@@ -4,7 +4,7 @@ using ShahanStore.Infrastructure.BackgroundJobs.Models;
 
 namespace ShahanStore.Infrastructure.Configuration.Persistence.OutboxMessages;
 
-public class OutboxMessageConfiguration:IEntityTypeConfiguration<OutboxMessage>
+public class OutboxMessageConfiguration : IEntityTypeConfiguration<OutboxMessage>
 {
     public void Configure(EntityTypeBuilder<OutboxMessage> builder)
     {

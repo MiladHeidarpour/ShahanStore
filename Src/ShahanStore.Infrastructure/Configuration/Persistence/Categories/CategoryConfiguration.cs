@@ -4,7 +4,7 @@ using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Infrastructure.Configuration.Persistence.Categories;
 
-public class CategoryConfiguration:IEntityTypeConfiguration<Category>
+public class CategoryConfiguration : IEntityTypeConfiguration<Category>
 {
     public void Configure(EntityTypeBuilder<Category> builder)
     {
@@ -20,7 +20,7 @@ public class CategoryConfiguration:IEntityTypeConfiguration<Category>
             .HasForeignKey(c => c.ParentId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany(b=>b.CategoryAttributes)
+        builder.HasMany(b => b.CategoryAttributes)
             .WithOne()
             .HasForeignKey(f => f.CategoryId)
             .OnDelete(DeleteBehavior.Cascade);

@@ -4,12 +4,12 @@ namespace Common.Infrastructure.MediatR;
 
 public class SyncContinueOnExceptionPublisher : INotificationPublisher
 {
-    public async Task Publish(IEnumerable<NotificationHandlerExecutor> handlerExecutors, INotification notification, CancellationToken cancellationToken)
+    public async Task Publish(IEnumerable<NotificationHandlerExecutor> handlerExecutors, INotification notification,
+        CancellationToken cancellationToken)
     {
         var exceptions = new List<Exception>();
 
         foreach (var handler in handlerExecutors)
-        {
             try
             {
                 // اجرای هر هندلر به ترتیب
@@ -20,11 +20,7 @@ public class SyncContinueOnExceptionPublisher : INotificationPublisher
                 // جمع‌آوری خطاها
                 exceptions.Add(ex);
             }
-        }
 
-        if (exceptions.Any())
-        {
-            throw new AggregateException(exceptions);
-        }
+        if (exceptions.Any()) throw new AggregateException(exceptions);
     }
 }

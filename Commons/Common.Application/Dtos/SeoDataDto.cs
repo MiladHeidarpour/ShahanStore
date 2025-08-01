@@ -8,7 +8,7 @@ public record SeoDataDto(
     // Indexing and Canonical
     bool IndexPage,
     string? Canonical,
-    
+
     // Social & Rich Snippets
     string? OgTitle,
     string? OgDescription,

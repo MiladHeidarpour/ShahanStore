@@ -5,10 +5,6 @@ namespace ShahanStore.Domain.Categories;
 
 public class CategoryAttribute : BaseEntity
 {
-    public Guid CategoryId { get; private set; }
-    public string Name { get; private set; }
-    public List<string> PossibleValues { get; private set; }
-
     public CategoryAttribute(string name, List<string> possibleValues, Guid categoryId)
     {
         DomainGuard.AgainstNullOrEmpty(name, nameof(Name));
@@ -20,6 +16,10 @@ public class CategoryAttribute : BaseEntity
         PossibleValues = possibleValues;
         CategoryId = categoryId;
     }
+
+    public Guid CategoryId { get; private set; }
+    public string Name { get; private set; }
+    public List<string> PossibleValues { get; private set; }
 
     public void Edit(string name, List<string> possibleValues)
     {

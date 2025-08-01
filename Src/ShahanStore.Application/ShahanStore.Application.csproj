@@ -7,6 +7,11 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="Mapster.EFCore" Version="5.1.1" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.18" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<ProjectReference Include="..\..\Commons\Common.Application\Common.Application.csproj" />
 		<ProjectReference Include="..\ShahanStore.Domain\ShahanStore.Domain.csproj" />
 	</ItemGroup>

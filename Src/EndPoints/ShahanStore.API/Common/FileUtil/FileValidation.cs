@@ -4,35 +4,35 @@ public static class FileValidation
 {
     // --- تصاویر ---
     private static readonly HashSet<string> ValidImageExtensions = new()
-    { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
+        { ".jpg", ".jpeg", ".png", ".gif", ".webp" };
 
     private static readonly HashSet<string> ValidImageMimeTypes = new()
-    { "image/jpeg", "image/png", "image/gif", "image/webp" };
+        { "image/jpeg", "image/png", "image/gif", "image/webp" };
 
     // --- ویدیوها ---
     private static readonly HashSet<string> ValidVideoExtensions = new()
-    { ".mp4", ".mov", ".mkv", ".avi" };
+        { ".mp4", ".mov", ".mkv", ".avi" };
 
     private static readonly HashSet<string> ValidVideoMimeTypes = new()
-    { "video/mp4", "video/quicktime", "video/x-matroska", "video/x-msvideo" };
+        { "video/mp4", "video/quicktime", "video/x-matroska", "video/x-msvideo" };
 
     // --- فایل‌های صوتی ---
     private static readonly HashSet<string> ValidAudioExtensions = new()
-    { ".mp3", ".wav", ".ogg", ".m4a" };
+        { ".mp3", ".wav", ".ogg", ".m4a" };
 
     private static readonly HashSet<string> ValidAudioMimeTypes = new()
-    { "audio/mpeg", "audio/wav", "audio/ogg", "audio/mp4" };
+        { "audio/mpeg", "audio/wav", "audio/ogg", "audio/mp4" };
 
     // --- فایل‌های فشرده ---
     private static readonly HashSet<string> ValidCompressExtensions = new()
-    { ".zip", ".rar", ".7z" };
+        { ".zip", ".rar", ".7z" };
 
     private static readonly HashSet<string> ValidCompressMimeTypes = new()
-    { "application/zip", "application/x-rar-compressed", "application/x-7z-compressed" };
+        { "application/zip", "application/x-rar-compressed", "application/x-7z-compressed" };
 
     // --- اسناد ---
     private static readonly HashSet<string> ValidDocumentExtensions = new()
-    { ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt" };
+        { ".pdf", ".doc", ".docx", ".xls", ".xlsx", ".txt" };
 
     private static readonly HashSet<string> ValidDocumentMimeTypes = new()
     {
@@ -48,20 +48,30 @@ public static class FileValidation
     // متدهای عمومی ولیدیشن
     // ------------------------------------------------------------------
 
-    public static bool IsValidImageFile(this IFormFile? file) =>
-        IsValid(file, ValidImageExtensions, ValidImageMimeTypes);
+    public static bool IsValidImageFile(this IFormFile? file)
+    {
+        return IsValid(file, ValidImageExtensions, ValidImageMimeTypes);
+    }
 
-    public static bool IsValidVideoFile(this IFormFile? file) =>
-        IsValid(file, ValidVideoExtensions, ValidVideoMimeTypes);
+    public static bool IsValidVideoFile(this IFormFile? file)
+    {
+        return IsValid(file, ValidVideoExtensions, ValidVideoMimeTypes);
+    }
 
-    public static bool IsValidAudioFile(this IFormFile? file) =>
-        IsValid(file, ValidAudioExtensions, ValidAudioMimeTypes);
+    public static bool IsValidAudioFile(this IFormFile? file)
+    {
+        return IsValid(file, ValidAudioExtensions, ValidAudioMimeTypes);
+    }
 
-    public static bool IsValidCompressFile(this IFormFile? file) =>
-        IsValid(file, ValidCompressExtensions, ValidCompressMimeTypes);
+    public static bool IsValidCompressFile(this IFormFile? file)
+    {
+        return IsValid(file, ValidCompressExtensions, ValidCompressMimeTypes);
+    }
 
-    public static bool IsValidDocumentFile(this IFormFile? file) =>
-        IsValid(file, ValidDocumentExtensions, ValidDocumentMimeTypes);
+    public static bool IsValidDocumentFile(this IFormFile? file)
+    {
+        return IsValid(file, ValidDocumentExtensions, ValidDocumentMimeTypes);
+    }
 
     // ------------------------------------------------------------------
     // متد اصلی و خصوصی که منطق اصلی ولیدیشن را انجام می‌دهد

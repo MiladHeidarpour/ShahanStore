@@ -9,4 +9,4 @@ public sealed record AddChildCategoryCommand(
     Guid ParentId,
     string? BannerImg,
     string? Icon,
-    SeoData SeoData):ICommand;
+    SeoData SeoData) : ICommand;

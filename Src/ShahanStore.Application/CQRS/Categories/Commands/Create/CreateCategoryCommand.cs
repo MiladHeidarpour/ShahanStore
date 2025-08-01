@@ -1,5 +1,4 @@
-﻿
-using Common.Application.Abstractions.Messaging.Commands;
+﻿using Common.Application.Abstractions.Messaging.Commands;
 using Common.Domain.ValueObjects;
 
 namespace ShahanStore.Application.CQRS.Categories.Commands.Create;

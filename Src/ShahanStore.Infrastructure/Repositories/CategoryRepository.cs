@@ -8,7 +8,7 @@ public class CategoryRepository(AppDbContext context) : Repository<Category>(con
 {
     public async Task<Category?> FindByIdAsync(Guid categoryId, CancellationToken cancellationToken)
     {
-        return await Context.Categories.FindAsync(categoryId,cancellationToken);
+        return await Context.Categories.FindAsync(categoryId, cancellationToken);
     }
 
     public async Task<Category?> GetByIdAsync(Guid categoryId, CancellationToken cancellationToken)
