@@ -8,10 +8,7 @@ internal static class CategoryMapper
 {
     public static CategoryDto? Map(this Category? category)
     {
-        if (category == null)
-        {
-            return null;
-        }
+        if (category == null) return null;
 
         var seoDataDto = new SeoDataDto(
             category.SeoData.MetaTitle,
@@ -24,7 +21,7 @@ internal static class CategoryMapper
             category.SeoData.Schema);
 
         var attributeDtos = category.CategoryAttributes
-            .Select(attr => new CategoryAttributeDto(attr.Id,attr.CreationDate ,attr.Name, attr.PossibleValues))
+            .Select(attr => new CategoryAttributeDto(attr.Id, attr.CreationDate, attr.Name, attr.PossibleValues))
             .ToList();
 
         return new CategoryDto(
@@ -38,7 +35,6 @@ internal static class CategoryMapper
             category.IsDeleted,
             seoDataDto,
             attributeDtos);
-
     }
 
     public static List<CategoryDto> Map(this List<Category> categories)

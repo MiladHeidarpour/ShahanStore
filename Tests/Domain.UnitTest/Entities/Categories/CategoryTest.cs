@@ -15,8 +15,8 @@ public class CategoryTest
         var slug = "digital-goods";
         var seoData = new SeoData("عنوان سئو", "توضیحات سئو", true, null, null, null, null, null);
         Guid? parentId = null;
-        string? bannerImg = "banner.jpg";
-        string? icon = "icon.png";
+        var bannerImg = "banner.jpg";
+        var icon = "icon.png";
 
         var category = Category.CreateNew(title, slug, parentId, bannerImg, icon, seoData);
 
@@ -33,14 +33,13 @@ public class CategoryTest
     }
 
 
-
     [Theory]
-    [InlineData(null, "some-slug")]  // تست با عنوان نال
-    [InlineData("", "some-slug")]    // تست با عنوان خالی
-    [InlineData(" ", "some-slug")]  // تست با عنوان فقط فاصله
-    [InlineData("some-title", null)]  // تست با اسلاگ نال
-    [InlineData("some-title", "")]    // تست با اسلاگ خالی
-    [InlineData("some-title", " ")]  // تست با اسلاگ فقط فاصله
+    [InlineData(null, "some-slug")] // تست با عنوان نال
+    [InlineData("", "some-slug")] // تست با عنوان خالی
+    [InlineData(" ", "some-slug")] // تست با عنوان فقط فاصله
+    [InlineData("some-title", null)] // تست با اسلاگ نال
+    [InlineData("some-title", "")] // تست با اسلاگ خالی
+    [InlineData("some-title", " ")] // تست با اسلاگ فقط فاصله
     public void CreateNew_Should_ThrowException_WhenTitleOrSlugIsInvalid(string title, string slug)
     {
         var seoData = new SeoData("عنوان سئو", "توضیحات سئو", true, null, null, null, null, null);
@@ -52,7 +51,7 @@ public class CategoryTest
     public void Edit_Should_UpdateProperties_WhenDataIsValid()
     {
         var initialSeoData = new SeoData("عنوان قدیمی", "توضیحات قدیمی", true, null, null, null, null, null);
-        var category = Category.CreateNew("عنوان اولیه", "initial-slug", null,null,null, initialSeoData);
+        var category = Category.CreateNew("عنوان اولیه", "initial-slug", null, null, null, initialSeoData);
 
         var newTitle = "عنوان جدید";
         var newSlug = "new-slug";
@@ -73,9 +72,9 @@ public class CategoryTest
     public void Edit_Should_ThrowException_WhenTitleOrSlugIsInvalid(string newTitle, string newSlug)
     {
         var seoData = new SeoData("عنوان سئو", "توضیحات سئو", true, null, null, null, null, null);
-        var category = Category.CreateNew("عنوان اولیه", "initial-slug", null,null,null,seoData);
+        var category = Category.CreateNew("عنوان اولیه", "initial-slug", null, null, null, seoData);
 
-        Action act = () => category.Edit(newTitle, newSlug, seoData);
+        var act = () => category.Edit(newTitle, newSlug, seoData);
 
         act.Should().Throw<NullOrEmptyDomainDataException>();
     }
@@ -106,8 +105,8 @@ public class CategoryTest
     {
         var category = Category.CreateNew("عنوان", "slug", null, null, null, SeoData.CreateEmpty());
 
-         Action act=()=>category.ChangeBanner(invalidBannerName);
-         act.Should().Throw<NullOrEmptyDomainDataException>();
+        var act = () => category.ChangeBanner(invalidBannerName);
+        act.Should().Throw<NullOrEmptyDomainDataException>();
     }
 
     [Fact]
@@ -126,7 +125,7 @@ public class CategoryTest
     {
         var category = Category.CreateNew("عنوان", "slug", null, null, null, SeoData.CreateEmpty());
 
-        Action act = () => category.ChangeIcon(invalidIconName);
+        var act = () => category.ChangeIcon(invalidIconName);
         act.Should().Throw<NullOrEmptyDomainDataException>();
     }
 }

@@ -4,7 +4,7 @@ using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.Infrastructure.Configuration.Persistence.Categories;
 
-public class CategoryAttributeConfiguration:IEntityTypeConfiguration<CategoryAttribute>
+public class CategoryAttributeConfiguration : IEntityTypeConfiguration<CategoryAttribute>
 {
     public void Configure(EntityTypeBuilder<CategoryAttribute> builder)
     {

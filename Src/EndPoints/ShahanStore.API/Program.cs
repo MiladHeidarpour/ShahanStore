@@ -1,11 +1,5 @@
 ﻿using Serilog;
-using ShahanStore.API.Common.FileUtil.Interfaces;
-using ShahanStore.API.Common.FileUtil.Services;
 using ShahanStore.API.Configuration;
-using ShahanStore.Application.CQRS.Categories.Commands.Create;
-using ShahanStore.Config;
-using System.Reflection;
-
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -24,7 +18,7 @@ try
     builder.Services.AddSwaggerGen();
 
     #region DependencyInjection
-    
+
     builder.Services.AddAPIDependency(builder.Configuration);
 
     #endregion
@@ -52,4 +46,3 @@ finally
     // ۳. اطمینان از ثبت تمام لاگ‌ها قبل از بسته شدن برنامه
     Log.CloseAndFlush();
 }
-

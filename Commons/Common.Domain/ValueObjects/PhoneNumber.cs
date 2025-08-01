@@ -7,14 +7,15 @@ namespace Common.Domain.ValueObjects;
 public class PhoneNumber : ValueObject
 {
     public const int RequiredLength = 11;
-    public string Value { get; private set; }
 
-    private PhoneNumber() { }
+    private PhoneNumber()
+    {
+    }
 
     public PhoneNumber(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            throw new InvalidDomainDataException("Phone number cannot be empty.",nameof(Value));
+            throw new InvalidDomainDataException("Phone number cannot be empty.", nameof(Value));
 
         if (value.Length != RequiredLength)
             throw new InvalidDomainDataException($"Phone number must be {RequiredLength} digits.", nameof(Value));
@@ -25,6 +26,8 @@ public class PhoneNumber : ValueObject
 
         Value = value;
     }
+
+    public string Value { get; private set; }
 
     public override IEnumerable<object> GetEqualityComponents()
     {

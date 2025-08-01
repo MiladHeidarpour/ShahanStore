@@ -7,4 +7,4 @@ public sealed record CategoryAttributeDto(
     DateTimeOffset CreationDate,
     string Name,
     List<string> PossibleValues
-):BaseDto(Id,CreationDate);
+) : BaseDto(Id, CreationDate);

@@ -2,7 +2,7 @@
 
 namespace ShahanStore.Infrastructure.Data;
 
-public class UnitOfWork:IUnitOfWork
+public class UnitOfWork : IUnitOfWork
 {
     private readonly AppDbContext _dbContext;
 

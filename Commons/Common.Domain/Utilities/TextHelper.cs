@@ -5,7 +5,7 @@ namespace Common.Domain.Utilities;
 
 public static class TextHelper
 {
-    private static readonly Random _random = new Random();
+    private static readonly Random _random = new();
 
     public static string ToSlug(this string text)
     {
@@ -13,36 +13,30 @@ public static class TextHelper
             return "";
 
         // حذف کاراکترهای غیرمجاز و جایگزینی فاصله‌ها با خط تیره
-        string slug = Regex.Replace(text.Trim().ToLower(), @"[^a-z0-9\s-]", ""); // فقط حروف انگلیسی، اعداد، فاصله و خط تیره مجاز است
+        var slug = Regex.Replace(text.Trim().ToLower(), @"[^a-z0-9\s-]",
+            ""); // فقط حروف انگلیسی، اعداد، فاصله و خط تیره مجاز است
         slug = Regex.Replace(slug, @"\s+", "-"); // تبدیل فاصله‌های متعدد به یک خط تیره
         slug = Regex.Replace(slug, @"-+", "-"); // تبدیل خط تیره های متعدد به یک خط تیره
 
         return slug.Trim('-');
     }
+
     public static string GenerateCode(int length)
     {
         const string chars = "0123456789";
         var stringBuilder = new StringBuilder(length);
 
-        for (int i = 0; i < length; i++)
-        {
-            stringBuilder.Append(chars[_random.Next(chars.Length)]);
-        }
+        for (var i = 0; i < length; i++) stringBuilder.Append(chars[_random.Next(chars.Length)]);
 
         return stringBuilder.ToString();
     }
+
     public static string Truncate(this string text, int maxLength)
     {
-        if (string.IsNullOrEmpty(text) || text.Length <= maxLength)
-        {
-            return text;
-        }
+        if (string.IsNullOrEmpty(text) || text.Length <= maxLength) return text;
 
         // اطمینان از اینکه طول متن برای اضافه کردن "..." کافی است
-        if (maxLength <= 3)
-        {
-            return "...";
-        }
+        if (maxLength <= 3) return "...";
 
         return text.Substring(0, maxLength - 3) + "...";
     }
@@ -56,10 +50,7 @@ public static class TextHelper
         var localPart = parts[0];
         var domain = parts[1];
 
-        if (localPart.Length <= 2)
-        {
-            return $"{localPart[0]}***@{domain}";
-        }
+        if (localPart.Length <= 2) return $"{localPart[0]}***@{domain}";
 
         return $"{localPart.Substring(0, 2)}***@{domain}";
     }

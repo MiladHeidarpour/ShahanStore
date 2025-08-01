@@ -6,6 +6,8 @@ using ShahanStore.Application.CQRS.Categories.Commands.AddChild;
 using ShahanStore.Application.CQRS.Categories.Commands.Create;
 using ShahanStore.Application.CQRS.Categories.Commands.Delete;
 using ShahanStore.Application.CQRS.Categories.Commands.Edit;
+using ShahanStore.Application.CQRS.Categories.DTOs.Queries;
+using ShahanStore.Domain.Categories;
 
 namespace ShahanStore.API.Configuration.Mapper;
 
@@ -25,6 +27,8 @@ public class CategoryMappingConfig : IRegister
                 src.Schema
             ));
 
+        config.NewConfig<Category, CategoryDto>()
+            .Map(dest => dest.Attributes, src => src.CategoryAttributes);
 
         //config.NewConfig<CreateCategoryDto, CreateCategoryCommand>();
         config.NewConfig<CreateCategoryDto, CreateCategoryCommand>()

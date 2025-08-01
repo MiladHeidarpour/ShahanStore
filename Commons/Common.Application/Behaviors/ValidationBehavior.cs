@@ -1,11 +1,13 @@
 ﻿using Common.Application.Abstractions.Messaging.Commands;
-using MediatR;
-using FluentValidation;
 using Common.Domain.Exceptions;
+using FluentValidation;
+using MediatR;
 using ValidationException = Common.Domain.Exceptions.ValidationException;
+
 namespace Common.Application.Behaviors;
 
-internal sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : ICommand
+internal sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TRequest : ICommand
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;
 
@@ -20,10 +22,7 @@ internal sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavio
         RequestHandlerDelegate<TResponse> next,
         CancellationToken cancellationToken)
     {
-        if (!_validators.Any())
-        {
-            return await next(cancellationToken);
-        }
+        if (!_validators.Any()) return await next(cancellationToken);
         var context = new ValidationContext<TRequest>(request);
 
         var validationResults = await Task.WhenAll(
@@ -37,10 +36,7 @@ internal sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavio
             .Distinct()
             .ToList();
 
-        if (errors.Any())
-        {
-            throw new ValidationException(errors);
-        }
+        if (errors.Any()) throw new ValidationException(errors);
 
         return await next(cancellationToken);
     }

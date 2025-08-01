@@ -2,20 +2,21 @@
 
 public class OperationResult
 {
-    public string Message { get; private set; }
-    public OperationResultStatus Status { get; private set; }
-
     protected OperationResult(string message, OperationResultStatus status)
     {
         Message = message;
         Status = status;
     }
 
+    public string Message { get; private set; }
+    public OperationResultStatus Status { get; private set; }
+
 
     public static OperationResult Success(string message = "عملیات با موفقیت انجام شد")
     {
         return new OperationResult(message, OperationResultStatus.Success);
     }
+
     public static OperationResult Warning(string message = "هشدار!")
     {
         return new OperationResult(message, OperationResultStatus.Warning);
@@ -34,28 +35,30 @@ public class OperationResult
 
 public class OperationResult<TData> : OperationResult
 {
-    public TData? Data { get; private set; }
-
     private OperationResult(string message, OperationResultStatus status, TData? data)
         : base(message, status)
     {
         Data = data;
     }
 
+    public TData? Data { get; private set; }
+
     public static OperationResult<TData> Success(TData data, string message = "عملیات با موفقیت انجام شد")
     {
         return new OperationResult<TData>(message, OperationResultStatus.Success, data);
     }
-    public static new OperationResult<TData> Warning(string message = "هشدار!")
+
+    public new static OperationResult<TData> Warning(string message = "هشدار!")
     {
         return new OperationResult<TData>(message, OperationResultStatus.Warning, default);
     }
-    public static new OperationResult<TData> Error(string message = "عملیات با شکست مواجه شد")
+
+    public new static OperationResult<TData> Error(string message = "عملیات با شکست مواجه شد")
     {
         return new OperationResult<TData>(message, OperationResultStatus.Error, default);
     }
 
-    public static new OperationResult<TData> NotFound(string message = "اطلاعات یافت نشد")
+    public new static OperationResult<TData> NotFound(string message = "اطلاعات یافت نشد")
     {
         return new OperationResult<TData>(message, OperationResultStatus.NotFound, default);
     }
