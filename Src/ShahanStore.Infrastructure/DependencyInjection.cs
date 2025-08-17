@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using ShahanStore.Application;
 using ShahanStore.Domain.Categories;
 using ShahanStore.Infrastructure.BackgroundJobs;
@@ -16,7 +17,9 @@ public static class DependencyInjection
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<AppDbContext>(options =>
-            options.UseNpgsql(connectionString));
+        {
+            options.UseNpgsql(connectionString);
+        });
 
         //Connect IApplicationDbContext To AppDbContext For Querying
         services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<AppDbContext>());

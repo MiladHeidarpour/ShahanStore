@@ -1,7 +1,5 @@
 ﻿namespace ShahanStore.Application.CQRS.Categories.DTOs.Queries.Filters;
 
-public class BaseFilterParam
-{
-    public int PageId { get; set; } = 1;
-    public int Take { get; set; } = 10;
-}
+public record BaseFilterParam(
+    int PageId = 1,
+    int Take = 10);

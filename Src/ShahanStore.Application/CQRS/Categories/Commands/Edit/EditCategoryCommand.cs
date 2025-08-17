@@ -7,4 +7,5 @@ public sealed record EditCategoryCommand(
     Guid Id,
     string Title,
     string Slug,
+    bool IsDeleted,
     SeoData SeoData) : ICommand;

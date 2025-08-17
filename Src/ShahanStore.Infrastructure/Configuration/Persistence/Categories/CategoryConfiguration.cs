@@ -16,7 +16,7 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(b => b.Slug).IsRequired().HasMaxLength(150).IsUnicode(false);
 
         builder.HasOne<Category>()
-            .WithMany()
+            .WithMany(c=>c.Children)
             .HasForeignKey(c => c.ParentId)
             .OnDelete(DeleteBehavior.Restrict);
 

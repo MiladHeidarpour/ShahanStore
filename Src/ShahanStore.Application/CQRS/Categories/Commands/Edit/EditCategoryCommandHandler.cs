@@ -19,7 +19,7 @@ internal sealed class EditCategoryCommandHandler(ICategoryRepository categoryRep
             if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug(), cancellationToken))
                 return OperationResult.Error("اسلاگ وارد شده تکراری است.");
 
-        category.Edit(request.Title, newSlug, request.SeoData);
+        category.Edit(request.Title, newSlug,request.IsDeleted ,request.SeoData);
         await unitOfWork.SaveChangesAsync(cancellationToken);
         return OperationResult.Success();
     }

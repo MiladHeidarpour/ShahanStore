@@ -14,7 +14,7 @@ internal sealed class CreateCategoryCommandHandler(ICategoryRepository categoryR
         if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug(), cancellationToken))
             return OperationResult.Error("اسلاگ وارد شده تکراری است.");
 
-        var category = Category.CreateNew(request.Title, request.Slug, null, request.BannerImg, request.Icon,
+        var category = Category.CreateNew(request.Title, request.Slug.ToSlug(), null, request.BannerImg, request.Icon,
             request.SeoData);
 
         categoryRepository.Add(category);

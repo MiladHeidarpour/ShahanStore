@@ -16,6 +16,8 @@ using ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 using ShahanStore.Application.CQRS.Categories.Queries.GetAll;
 using ShahanStore.Application.CQRS.Categories.Queries.GetByFilter;
 using ShahanStore.Application.CQRS.Categories.Queries.GetById;
+using ShahanStore.Application.CQRS.Categories.Queries.GetByIdWithDetails;
+using ShahanStore.Application.CQRS.Categories.Queries.GetBySlug;
 
 namespace ShahanStore.API.Controllers;
 
@@ -45,27 +47,13 @@ public class CategoryController(IMediator mediator, IMapper mapper, ILocalFileSe
             iconImgName = await localFileService.SaveFileAsync(request.Icon, AppDirectories.CategoryIcon);
         }
 
-
         var command = mapper.Map<CreateCategoryCommand>(request);
         var finalCommand = command with { BannerImg = bannerImgName, Icon = iconImgName };
-        //var command = new CreateCategoryCommand(
-        //    request.Title,
-        //    request.Slug,
-        //    bannerImgName,
-        //    iconImgName,
-        //    new SeoData(
-        //        request.SeoData.MetaTitle,
-        //        request.SeoData.MetaDescription,
-        //        request.SeoData.IndexPage,
-        //        request.SeoData.Canonical,
-        //        request.SeoData.OgTitle,
-        //        request.SeoData.OgDescription,
-        //        request.SeoData.OgImage,
-        //        request.SeoData.Schema
-        //    ));
         var result = await mediator.Send(finalCommand, cancellationToken);
         return HandleResult(result);
     }
+
+
 
     [HttpPut]
     [ProducesDefaultResponseType(typeof(OperationResult))]
@@ -76,20 +64,23 @@ public class CategoryController(IMediator mediator, IMapper mapper, ILocalFileSe
         return HandleResult(result);
     }
 
-    [HttpDelete]
+
+
+    [HttpDelete("{categoyId}")]
     [ProducesDefaultResponseType(typeof(OperationResult))]
-    public async Task<IActionResult> Delete(DeleteCategoryDto request, CancellationToken cancellationToken)
+    public async Task<IActionResult> Delete([FromRoute] Guid categoyId, CancellationToken cancellationToken)
     {
-        var command = mapper.Map<DeleteCategoryCommand>(request);
+        var command = mapper.Map<DeleteCategoryCommand>(new DeleteCategoryDto(categoyId));
         var result = await mediator.Send(command, cancellationToken);
         return HandleResult(result);
     }
 
+
+
     [HttpPost]
     [Route("AddChild")]
     [ProducesDefaultResponseType(typeof(OperationResult))]
-    public async Task<IActionResult> AddChild([FromForm] AddChildCategoryDto request,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> AddChild([FromForm] AddChildCategoryDto request,CancellationToken cancellationToken)
     {
         string? bannerImgName = null;
         if (request.BannerImg is not null)
@@ -111,18 +102,18 @@ public class CategoryController(IMediator mediator, IMapper mapper, ILocalFileSe
 
         var command = mapper.Map<AddChildCategoryCommand>(request);
         var finalCommand = command with { BannerImg = bannerImgName, Icon = iconImgName };
-
         var result = await mediator.Send(finalCommand, cancellationToken);
         return HandleResult(result);
     }
 
+
+
     [HttpPut]
     [Route("ChangeBanner")]
     [ProducesDefaultResponseType(typeof(OperationResult<string?>))]
-    public async Task<IActionResult> ChangeBanner([FromForm] ChangeCategoryBannerDto request,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> ChangeBanner([FromForm] ChangeCategoryBannerDto request,CancellationToken cancellationToken)
     {
-        if (request.BannerImg is null && !request.BannerImg.IsValidImageFile())
+        if (!request.BannerImg.IsValidImageFile() && request.BannerImg is null)
             return HandleResult(OperationResult.Error("فایل بنر نامعتبر است"));
 
         var bannerImgName = await localFileService.SaveFileAsync(request.BannerImg, AppDirectories.CategoryBanner);
@@ -137,11 +128,11 @@ public class CategoryController(IMediator mediator, IMapper mapper, ILocalFileSe
     }
 
 
+
     [HttpPut]
     [Route("ChangeIcon")]
     [ProducesDefaultResponseType(typeof(OperationResult<string?>))]
-    public async Task<IActionResult> ChangeIcon([FromForm] ChangeCategoryIconDto request,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> ChangeIcon([FromForm] ChangeCategoryIconDto request,CancellationToken cancellationToken)
     {
         if (!request.Icon.IsValidImageFile() && request.Icon is null)
             return HandleResult(OperationResult.Error("فایل بنر نامعتبر است"));
@@ -159,17 +150,30 @@ public class CategoryController(IMediator mediator, IMapper mapper, ILocalFileSe
 
     #endregion
 
+
+
+
     #region Queries
 
     [HttpGet]
     [Route("Filter")]
     [ProducesDefaultResponseType(typeof(OperationResult<CategoryDto>))]
-    public async Task<IActionResult> GetByFilter([FromQuery] CategoryFilterParams filterParams,
-        CancellationToken cancellationToken)
+    public async Task<IActionResult> GetByFilter([FromQuery] CategoryFilterParams filterParams,CancellationToken cancellationToken)
     {
         var query = new GetCategoriesByFilterQuery(filterParams);
         var result = await mediator.Send(query, cancellationToken);
         return HandleResult(OperationResult<CategoryFilterResult>.Success(result));
+    }
+
+
+    [HttpGet]
+    [Route("GetAll")]
+    [ProducesDefaultResponseType(typeof(OperationResult<List<CategoryDto>>))]
+    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    {
+        var query = new GetAllCategoriesQuery();
+        var result = await mediator.Send(query, cancellationToken);
+        return HandleResult(OperationResult<List<CategoryDto>>.Success(result));
     }
 
 
@@ -184,15 +188,26 @@ public class CategoryController(IMediator mediator, IMapper mapper, ILocalFileSe
     }
 
 
+
     [HttpGet]
-    [Route("GetAll")]
-    [ProducesDefaultResponseType(typeof(OperationResult<List<CategoryDto>>))]
-    public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
+    [Route("GetByIdWithDetails/{id:guid}")]
+    [ProducesDefaultResponseType(typeof(OperationResult<CategoryDto>))]
+    public async Task<IActionResult> GetByIdWithDetails(Guid id, CancellationToken cancellationToken)
     {
-        var query = new GetAllCategoriesQuery();
+        var query = new GetCategoryByIdWithDetailsQuery(id);
         var result = await mediator.Send(query, cancellationToken);
-        return HandleResult(OperationResult<List<CategoryDto>>.Success(result));
+        return HandleResult(OperationResult<CategoryDto>.Success(result));
     }
 
+
+    [HttpGet]
+    [Route("{slug}")]
+    [ProducesDefaultResponseType(typeof(OperationResult<CategoryDto>))]
+    public async Task<IActionResult> GetBySlug(string slug, CancellationToken cancellationToken)
+    {
+        var query = new GetCategoryBySlugQuery(slug);
+        var result = await mediator.Send(query, cancellationToken);
+        return HandleResult(OperationResult<CategoryDto>.Success(result));
+    }
     #endregion
 }

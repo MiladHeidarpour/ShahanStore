@@ -55,9 +55,10 @@ public class CategoryTest
 
         var newTitle = "عنوان جدید";
         var newSlug = "new-slug";
+        bool newIsDeleted = false;
         var newSeoData = new SeoData("عنوان سئوی جدید", "توضیحات سئوی جدید", false, null, null, null, null, null);
 
-        category.Edit(newTitle, newSlug, newSeoData);
+        category.Edit(newTitle, newSlug,newIsDeleted, newSeoData);
 
         category.Title.Should().Be(newTitle);
         category.Slug.Should().Be(newSlug);
@@ -65,16 +66,16 @@ public class CategoryTest
     }
 
     [Theory]
-    [InlineData(null, "some-slug")]
-    [InlineData("", "some-slug")]
-    [InlineData("some-title", null)]
-    [InlineData("some-title", "")]
-    public void Edit_Should_ThrowException_WhenTitleOrSlugIsInvalid(string newTitle, string newSlug)
+    [InlineData(null, "some-slug",true)]
+    [InlineData("", "some-slug",false)]
+    [InlineData("some-title", null,false)]
+    [InlineData("some-title", "",true)]
+    public void Edit_Should_ThrowException_WhenTitleOrSlugIsInvalid(string newTitle, string newSlug,bool newIsDeleted)
     {
         var seoData = new SeoData("عنوان سئو", "توضیحات سئو", true, null, null, null, null, null);
         var category = Category.CreateNew("عنوان اولیه", "initial-slug", null, null, null, seoData);
 
-        var act = () => category.Edit(newTitle, newSlug, seoData);
+        var act = () => category.Edit(newTitle, newSlug,newIsDeleted, seoData);
 
         act.Should().Throw<NullOrEmptyDomainDataException>();
     }

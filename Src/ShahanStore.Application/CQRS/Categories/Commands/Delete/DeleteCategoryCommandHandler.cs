@@ -10,13 +10,13 @@ internal sealed class DeleteCategoryCommandHandler(ICategoryRepository categoryR
 {
     public async Task<OperationResult> Handle(DeleteCategoryCommand request, CancellationToken cancellationToken)
     {
-        var category = await categoryRepository.FindByIdAsync(request.CategoryId, cancellationToken);
+        var category = await categoryRepository.FindByIdWithDetailsAsync(request.CategoryId, cancellationToken);
         if (category is null) return OperationResult.NotFound();
 
-        var children = await categoryRepository.GetAllChildrenAsync(request.CategoryId, cancellationToken);
         categoryRepository.Delete(category);
-        foreach (var child in children) child.Delete();
+        foreach (var child in category.Children) child.Delete();
+
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return OperationResult.Success();
+        return OperationResult.Success("دسته بندی با موفقیت حذف شد.");
     }
 }

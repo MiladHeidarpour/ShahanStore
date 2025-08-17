@@ -28,7 +28,13 @@ public class CategoryMappingConfig : IRegister
             ));
 
         config.NewConfig<Category, CategoryDto>()
+             .Map(dest => dest.Children, src => src.Children)
             .Map(dest => dest.Attributes, src => src.CategoryAttributes);
+
+        config.NewConfig<Category, ChildCategoryDto>();
+
+        config.NewConfig<Category, CategoryFilterData>();
+            //.Map(dest => dest.Attributes, src => src.CategoryAttributes);
 
         //config.NewConfig<CreateCategoryDto, CreateCategoryCommand>();
         config.NewConfig<CreateCategoryDto, CreateCategoryCommand>()

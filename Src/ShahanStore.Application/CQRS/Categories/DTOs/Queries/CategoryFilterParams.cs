@@ -1,12 +1,12 @@
-﻿namespace ShahanStore.Application.CQRS.Categories.DTOs.Queries;
+﻿using ShahanStore.Application.CQRS.Categories.DTOs.Queries.Filters;
+
+namespace ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 
 public record CategoryFilterParams(
-    Guid? CategoryId,
-    string? Slug,
     string? Search,
     Status? Status,
     int PageId = 1,
-    int Take = 10);
+    int Take = 10):BaseFilterParam(PageId,Take);
 
 public enum Status
 {

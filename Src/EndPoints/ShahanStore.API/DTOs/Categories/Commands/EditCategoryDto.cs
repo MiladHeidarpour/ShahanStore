@@ -6,4 +6,5 @@ public sealed record EditCategoryDto(
     Guid Id,
     string Title,
     string Slug,
+    bool IsDeleted,
     SeoDataDto SeoData);

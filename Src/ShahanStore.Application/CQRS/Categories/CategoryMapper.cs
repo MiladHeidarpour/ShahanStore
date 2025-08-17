@@ -1,6 +1,7 @@
 ﻿using Common.Application.DTOs;
 using ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 using ShahanStore.Domain.Categories;
+using System.Linq;
 
 namespace ShahanStore.Application.CQRS.Categories;
 
@@ -20,9 +21,35 @@ internal static class CategoryMapper
             category.SeoData.OgImage,
             category.SeoData.Schema);
 
+
         var attributeDtos = category.CategoryAttributes
             .Select(attr => new CategoryAttributeDto(attr.Id, attr.CreationDate, attr.Name, attr.PossibleValues))
             .ToList();
+
+
+        var childrenDto = category.Children
+            .Select(child => new ChildCategoryDto(
+                child.Id,
+            child.CreationDate,
+            child.Title,
+            child.Slug,
+            child.ParentId,
+            child.BannerImg,
+            child.Icon,
+            child.IsDeleted,
+            new SeoDataDto(
+            child.SeoData.MetaTitle,
+            child.SeoData.MetaDescription,
+            child.SeoData.IndexPage,
+            child.SeoData.Canonical,
+            child.SeoData.OgTitle,
+            child.SeoData.OgDescription,
+            child.SeoData.OgImage,
+            child.SeoData.Schema),
+            child.CategoryAttributes
+            .Select(attr => new CategoryAttributeDto(attr.Id, attr.CreationDate, attr.Name, attr.PossibleValues))
+            .ToList())).ToList();
+
 
         return new CategoryDto(
             category.Id,
@@ -34,6 +61,7 @@ internal static class CategoryMapper
             category.Icon,
             category.IsDeleted,
             seoDataDto,
+            childrenDto,
             attributeDtos);
     }
 

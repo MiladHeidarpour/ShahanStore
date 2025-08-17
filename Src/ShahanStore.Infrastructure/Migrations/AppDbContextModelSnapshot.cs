@@ -130,7 +130,7 @@ namespace ShahanStore.Infrastructure.Migrations
                         .HasForeignKey("ParentId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.OwnsOne("Common.Domain.ValueObjects.SeoData", "SeoData", b1 =>
+                    b.OwnsOne("ShahanStore.Domain.Categories.Category.SeoData#Common.Domain.ValueObjects.SeoData", "SeoData", b1 =>
                         {
                             b1.Property<Guid>("CategoryId")
                                 .HasColumnType("uuid");

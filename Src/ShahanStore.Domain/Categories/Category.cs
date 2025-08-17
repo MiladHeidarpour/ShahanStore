@@ -7,6 +7,7 @@ namespace ShahanStore.Domain.Categories;
 public class Category : AggregateRoot
 {
     private readonly List<CategoryAttribute> _categoryAttributes = new();
+    private readonly List<Category> _children = new();
 
 
     private Category(string title, string slug, Guid? parentId, string? bannerImg, string? icon, SeoData seoData)
@@ -33,6 +34,7 @@ public class Category : AggregateRoot
     public bool IsDeleted { get; private set; }
     public SeoData SeoData { get; private set; }
     public IReadOnlyCollection<CategoryAttribute> CategoryAttributes => _categoryAttributes.AsReadOnly();
+    public IReadOnlyCollection<Category> Children => _children.AsReadOnly();
 
 
     public static Category CreateNew(string title, string slug, Guid? parentId, string? bannerImg, string? icon,
@@ -41,11 +43,12 @@ public class Category : AggregateRoot
         return new Category(title, slug, parentId, bannerImg, icon, seoData);
     }
 
-    public void Edit(string title, string slug, SeoData seoData)
+    public void Edit(string title, string slug,bool isDeleted, SeoData seoData)
     {
         Guard(title, slug);
         Title = title;
         Slug = slug;
+        IsDeleted = isDeleted;
         SeoData = seoData;
     }
 

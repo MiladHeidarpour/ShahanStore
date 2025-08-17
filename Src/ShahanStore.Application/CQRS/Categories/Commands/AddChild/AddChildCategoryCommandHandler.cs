@@ -11,13 +11,13 @@ internal sealed class AddChildCategoryCommandHandler(ICategoryRepository categor
 {
     public async Task<OperationResult> Handle(AddChildCategoryCommand request, CancellationToken cancellationToken)
     {
-        var parentCategory = await categoryRepository.GetByIdAsync(request.ParentId, cancellationToken);
+        var parentCategory = await categoryRepository.FindByIdAsync(request.ParentId, cancellationToken);
         if (parentCategory is null) return OperationResult.NotFound();
 
         if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug(), cancellationToken))
             return OperationResult.Error("اسلاگ وارد شده تکراری است.");
 
-        var childCategory = Category.CreateNew(request.Title, request.Slug, request.ParentId, request.BannerImg,
+        var childCategory = Category.CreateNew(request.Title, request.Slug.ToSlug(), request.ParentId, request.BannerImg,
             request.Icon,
             request.SeoData);
 

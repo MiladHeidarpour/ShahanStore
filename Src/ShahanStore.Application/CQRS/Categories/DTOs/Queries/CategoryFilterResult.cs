@@ -2,7 +2,7 @@
 
 namespace ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 
-public class CategoryFilterResult : BaseFilterResult
+public class CategoryFilterResult : BaseFilter<CategoryFilterData, CategoryFilterParams>
 {
-    public List<CategoryDto> Categories { get; set; }
+
 }
