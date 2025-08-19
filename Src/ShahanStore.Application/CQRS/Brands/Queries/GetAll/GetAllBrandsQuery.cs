@@ -1,11 +1,13 @@
 ﻿using Common.Application.Abstractions.Messaging.Queries;
+using ShahanStore.Application.CQRS.Brands.DTOs.Queries;
 using ShahanStore.Application.CQRS.Categories.DTOs.Queries;
+using ShahanStore.Domain.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShahanStore.Application.CQRS.Categories.Queries.GetByIdWithDetails;
+namespace ShahanStore.Application.CQRS.Brands.Queries.GetAll;
 
-public sealed record GetCategoryByIdWithDetailsQuery(Guid CategoryId) : IQuery<CategoryDto?>;
+public sealed record GetAllBrandsQuery() : IQuery<List<BrandDto>>;

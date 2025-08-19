@@ -17,6 +17,6 @@ internal sealed class DeleteCategoryCommandHandler(ICategoryRepository categoryR
         foreach (var child in category.Children) child.Delete();
 
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return OperationResult.Success("دسته بندی با موفقیت حذف شد.");
+        return OperationResult.Success("دسته‌بندی با موفقیت حذف شد.");
     }
 }

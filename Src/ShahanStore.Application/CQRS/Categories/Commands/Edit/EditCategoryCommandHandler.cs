@@ -16,11 +16,11 @@ internal sealed class EditCategoryCommandHandler(ICategoryRepository categoryRep
 
         var newSlug = request.Slug.ToSlug();
         if (category.Slug != newSlug)
-            if (await categoryRepository.IsSlugDuplicateAsync(request.Slug.ToSlug(), cancellationToken))
+            if (await categoryRepository.IsSlugDuplicateAsync(newSlug, cancellationToken))
                 return OperationResult.Error("اسلاگ وارد شده تکراری است.");
 
         category.Edit(request.Title, newSlug,request.IsDeleted ,request.SeoData);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return OperationResult.Success();
+        return OperationResult.Success("دسته‌بندی با موفقیت ویرایش شد.");
     }
 }

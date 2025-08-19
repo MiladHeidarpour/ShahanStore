@@ -9,11 +9,9 @@ namespace ShahanStore.Application.CQRS.Categories.Queries.GetAll;
 internal sealed class GetAllCategoriesQueryHandler(ICategoryRepository categoryRepository)
     : IQueryHandler<GetAllCategoriesQuery, List<CategoryDto>>
 {
-    private readonly ICategoryRepository _categoryRepository = categoryRepository;
-
     public async Task<List<CategoryDto>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
     {
-        var query = await _categoryRepository.GetAllAsync(cancellationToken);
+        var query = await categoryRepository.GetAllAsync(cancellationToken);
 
         return query
             .Select(category => new CategoryDto(

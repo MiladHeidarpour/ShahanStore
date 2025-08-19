@@ -1,4 +1,4 @@
-﻿namespace ShahanStore.Application.CQRS.Categories.DTOs.Queries.Filters;
+﻿namespace Common.Application.DTOs.Filters;
 
 public class BaseFilterResult
 {
