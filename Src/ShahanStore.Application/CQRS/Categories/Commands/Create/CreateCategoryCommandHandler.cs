@@ -19,6 +19,6 @@ internal sealed class CreateCategoryCommandHandler(ICategoryRepository categoryR
 
         categoryRepository.Add(category);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return OperationResult.Success("دسته بندی اضافه شد.");
+        return OperationResult.Success("دسته‌بندی اضافه شد.");
     }
 }

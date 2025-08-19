@@ -1,4 +1,4 @@
-﻿using ShahanStore.Application.CQRS.Categories.DTOs.Queries.Filters;
+﻿using Common.Application.DTOs.Filters;
 
 namespace ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 

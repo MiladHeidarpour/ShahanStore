@@ -1,5 +1,5 @@
-﻿using ShahanStore.Application.CQRS.Categories.DTOs.Queries;
-using ShahanStore.Application.CQRS.Categories.DTOs.Queries.Filters;
+﻿using Common.Application.DTOs.Filters;
+using ShahanStore.Application.CQRS.Categories.DTOs.Queries;
 
 namespace ShahanStore.Application.CQRS.Categories.Queries.GetByFilter;
 
