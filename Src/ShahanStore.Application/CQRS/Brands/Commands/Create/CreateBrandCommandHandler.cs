@@ -19,6 +19,6 @@ internal sealed class CreateBrandCommandHandler(IBrandRepository brandRepository
 
         brandRepository.Add(brand);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return OperationResult.Success("برند بندی اضافه شد.");
+        return OperationResult.Success("برند اضافه شد.");
     }
 }
