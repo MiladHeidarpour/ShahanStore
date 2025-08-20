@@ -135,7 +135,7 @@ public class CategoryController(IMediator mediator, IMapper mapper, ILocalFileSe
     public async Task<IActionResult> ChangeIcon([FromForm] ChangeCategoryIconDto request,CancellationToken cancellationToken)
     {
         if (!request.Icon.IsValidImageFile() && request.Icon is null)
-            return HandleResult(OperationResult.Error("فایل بنر نامعتبر است"));
+            return HandleResult(OperationResult.Error("فایل آیکون نامعتبر است"));
 
         var iconImgName = await localFileService.SaveFileAsync(request.Icon, AppDirectories.CategoryIcon);
 

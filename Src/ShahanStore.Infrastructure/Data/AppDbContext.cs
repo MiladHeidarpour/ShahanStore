@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using ShahanStore.Application;
+using ShahanStore.Domain.Brands;
 using ShahanStore.Domain.Categories;
 using ShahanStore.Infrastructure.BackgroundJobs.Models;
 
@@ -15,6 +16,7 @@ public class AppDbContext : DbContext, IApplicationDbContext
 
     public DbSet<OutboxMessage> OutboxMessages { get; set; }
     public DbSet<Category> Categories { get; set; }
+    public DbSet<Brand> Brands { get; set; }
 
     public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

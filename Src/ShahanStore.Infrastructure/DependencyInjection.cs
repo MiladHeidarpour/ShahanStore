@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ShahanStore.Application;
+using ShahanStore.Domain.Brands;
 using ShahanStore.Domain.Categories;
 using ShahanStore.Infrastructure.BackgroundJobs;
 using ShahanStore.Infrastructure.Data;
@@ -26,6 +27,7 @@ public static class DependencyInjection
 
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IBrandRepository, BrandRepository>();
 
         services.AddHostedService<ProcessOutboxMessagesJob>();
         return services;
