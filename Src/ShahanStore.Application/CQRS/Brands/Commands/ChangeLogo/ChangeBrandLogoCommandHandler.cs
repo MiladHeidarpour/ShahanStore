@@ -14,9 +14,9 @@ internal sealed class ChangeBrandLogoCommandHandler(IBrandRepository brandReposi
 
         if (brand is null) return OperationResult<string?>.NotFound();
 
-        var oldIconImage = brand.Logo;
+        var oldLogoImage = brand.Logo;
         brand.ChangeLogo(request.Logo);
         await unitOfWork.SaveChangesAsync(cancellationToken);
-        return OperationResult<string?>.Success(oldIconImage);
+        return OperationResult<string?>.Success(oldLogoImage);
     }
 }
